@@ -2,8 +2,9 @@ import React, {useState} from "react";
 
 function PlantCard({id, name, image, price, onPlantDelete, onPriceEdit}) {
 
-  const [inStock, setInStock] = useState(true)
-  const [updatedPrice, setUpdatedPrice] = useState(price)
+  const [inStock, setInStock] = useState(true);
+  const [updatedPrice, setUpdatedPrice] = useState(price);
+  const [editMode, setEditMode] = useState(false);
 
   function handleClick() {
     setInStock(inStock => !inStock)
@@ -23,6 +24,10 @@ function PlantCard({id, name, image, price, onPlantDelete, onPriceEdit}) {
     onPriceEdit(id, updatedPrice);
   }
 
+  function handleEditMode() {
+    setEditMode(editMode => !editMode)
+  }
+
   return (
     <li className="card">
       <img src={image} alt={name} />
@@ -34,13 +39,15 @@ function PlantCard({id, name, image, price, onPlantDelete, onPriceEdit}) {
         <button onClick={handleClick}>Out of Stock</button>
       )}
       <button onClick={handleDelete}>Delete 🗑️</button>
-      <button>Edit Price 💵</button>
-      <form onSubmit={handlePriceSubmit}>
-        <label>
-          <input type="number" name="price" step="0.01" placeholder="Price" value={updatedPrice} onChange={handleChange}/>
-        </label>
-        <button type="submit">Update ✅</button>
-      </form>
+      <button onClick={handleEditMode}>Edit Price 💵</button>
+      {editMode ? (
+        <form onSubmit={handlePriceSubmit}>
+          <label>
+            <input type="number" name="price" step="0.01" placeholder="Price" value={updatedPrice} onChange={handleChange}/>
+          </label>
+          <button type="submit">Update ✅</button>
+        </form>
+      ) : null}
     </li>
   );
 }
