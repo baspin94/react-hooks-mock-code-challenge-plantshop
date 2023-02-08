@@ -39,11 +39,34 @@ function PlantPage() {
     setPlants(updatedPlants);
   }
 
+  function modifyPlantList(updatedPlantObject){
+    const updatedPlants = plants.map(plant => {
+      if (plant.id === updatedPlantObject.id) {
+        return updatedPlantObject;
+      } else {
+        return plant;
+      }
+    })
+    setPlants(updatedPlants);
+  } 
+
+  function handlePriceEdit(updatedId, newPrice){
+    fetch(`http://localhost:6001/plants/${updatedId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({price: newPrice})
+      })
+        .then(response => response.json())
+        .then(updatedPlant => modifyPlantList(updatedPlant))
+    }
+
   return (
     <main>
       <NewPlantForm onPlantSubmit={handlePlantSubmit}/>
       <Search onSearch={setSearch}/>
-      <PlantList plants={filteredPlants} onPlantDelete={handlePlantDelete}/>
+      <PlantList plants={filteredPlants} onPlantDelete={handlePlantDelete} onPriceEdit={handlePriceEdit}/>
     </main>
   );
 }

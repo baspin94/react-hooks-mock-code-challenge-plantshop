@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function PlantCard({id, name, image, price, onPlantDelete}) {
+function PlantCard({id, name, image, price, onPlantDelete, onPriceEdit}) {
 
   const [inStock, setInStock] = useState(true)
   const [updatedPrice, setUpdatedPrice] = useState(price)
@@ -16,7 +16,11 @@ function PlantCard({id, name, image, price, onPlantDelete}) {
   function handleChange(event) {
     const newPrice = event.target.value
     setUpdatedPrice(newPrice);
+  }
 
+  function handlePriceSubmit(event) {
+    event.preventDefault();
+    onPriceEdit(id, updatedPrice);
   }
 
   return (
@@ -31,7 +35,7 @@ function PlantCard({id, name, image, price, onPlantDelete}) {
       )}
       <button onClick={handleDelete}>Delete 🗑️</button>
       <button>Edit Price 💵</button>
-      <form>
+      <form onSubmit={handlePriceSubmit}>
         <label>
           <input type="number" name="price" step="0.01" placeholder="Price" value={updatedPrice} onChange={handleChange}/>
         </label>
