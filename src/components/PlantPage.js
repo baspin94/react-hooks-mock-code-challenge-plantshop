@@ -17,9 +17,21 @@ function PlantPage() {
   const filteredPlants = plants.filter(plant => 
     plant.name.toLowerCase().includes(search))
 
+  function handlePlantSubmit(plantObject) {
+    fetch("http://localhost:6001/plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(plantObject)
+    })
+      .then(response => response.json())
+      .then(newPlant => setPlants([...plants, newPlant]))
+  }
+
   return (
     <main>
-      <NewPlantForm />
+      <NewPlantForm onPlantSubmit={handlePlantSubmit}/>
       <Search onSearch={setSearch}/>
       <PlantList plants={filteredPlants}/>
     </main>
