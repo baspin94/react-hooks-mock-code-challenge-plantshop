@@ -51,12 +51,13 @@ function PlantPage() {
   } 
 
   function handlePriceEdit(updatedId, newPrice){
+    const updatedPrice = parseFloat(newPrice);
     fetch(`http://localhost:6001/plants/${updatedId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({price: newPrice})
+      body: JSON.stringify({price: updatedPrice})
       })
         .then(response => response.json())
         .then(updatedPlant => modifyPlantList(updatedPlant))
