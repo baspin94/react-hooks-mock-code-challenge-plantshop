@@ -18,6 +18,7 @@ function PlantCard({name, image, price}) {
       ) : (
         <button onClick={handleClick}>Out of Stock</button>
       )}
+      <button>Delete 🗑️</button>
     </li>
   );
 }
