@@ -22,6 +22,7 @@ function NewPlantForm({onPlantSubmit}) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    formData.price = parseFloat(formData.price)
     onPlantSubmit(formData);
     setFormData(initialFormObject);
   }
