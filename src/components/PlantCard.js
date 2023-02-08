@@ -1,11 +1,15 @@
 import React, {useState} from "react";
 
-function PlantCard({name, image, price}) {
+function PlantCard({id, name, image, price, onPlantDelete}) {
 
   const [inStock, setInStock] = useState(true)
 
   function handleClick() {
     setInStock(inStock => !inStock)
+  }
+
+  function handleDelete() {
+    onPlantDelete(id);
   }
 
   return (
@@ -18,7 +22,7 @@ function PlantCard({name, image, price}) {
       ) : (
         <button onClick={handleClick}>Out of Stock</button>
       )}
-      <button>Delete 🗑️</button>
+      <button onClick={handleDelete}>Delete 🗑️</button>
     </li>
   );
 }
