@@ -30,6 +30,9 @@ function PlantPage() {
   }
 
   function handlePlantDelete(deletedId){
+    fetch(`http://localhost:6001/plants/${deletedId}`, {
+      method: "DELETE"
+    })
     const updatedPlants = plants.filter(plant => {
       return plant.id !== deletedId
     })
